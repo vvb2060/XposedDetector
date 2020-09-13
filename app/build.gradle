@@ -1,0 +1,56 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
+    ndkVersion '21.3.6528147'
+    defaultConfig {
+        applicationId 'io.github.vvb2060.xposeddetector'
+        minSdkVersion 21
+        targetSdkVersion 30
+        versionCode 1
+        versionName '1.0'
+        externalNativeBuild {
+            ndkBuild {
+                arguments "-j${Runtime.runtime.availableProcessors()}"
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.debug
+            proguardFiles 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        buildConfig false
+        viewBinding true
+    }
+
+    externalNativeBuild {
+        ndkBuild.path 'src/main/jni/Android.mk'
+    }
+
+    packagingOptions {
+        exclude '/META-INF/**'
+        exclude '/*.properties'
+    }
+
+    dependenciesInfo.includeInApk false
+}
+
+dependencies {
+    //noinspection GradleDependency
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+}
