@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_xposed">no xposed</string>
+    <string name="found_xposed">found xposed</string>
+    <string name="antied_xposed">antied xposed</string>
+    <string name="app_name">Xposed Detector</string>
+</resources>

@@ -7,6 +7,7 @@
 #include "xposed.h"
 #include "art.h"
 #include "hash.h"
+#include "include/xposed-detector.h"
 
 static void inline fill_NewLocalRef(char v[]) {
     // _ZN3art9JNIEnvExt11NewLocalRefEPNS_6mirror6ObjectE
@@ -181,11 +182,17 @@ static void doAntiXposed(JNIEnv *env, jobject object, intptr_t hash) {
     if (classXposedBridge == nullptr) {
         return;
     }
+    if (xposed_status == NO_XPOSED) {
+        xposed_status = FOUND_XPOSED;
+    }
     disableXposedBridge(env, classXposedBridge);
     if (clearHooks(env, object)) {
 #ifdef DEBUG
         LOGI("hooks cleared");
 #endif
+        if (xposed_status != ANTIED_XPOSED) {
+            xposed_status = ANTIED_XPOSED;
+        }
     }
 }
 

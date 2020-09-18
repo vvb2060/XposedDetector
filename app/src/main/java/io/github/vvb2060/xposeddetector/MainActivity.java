@@ -11,5 +11,18 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         ActivityMainBinding binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        switch (getXposedStat()) {
+            case 0:
+                binding.textView.setText(R.string.no_xposed);
+                break;
+            case 1:
+                binding.textView.setText(R.string.found_xposed);
+                break;
+            case 2:
+                binding.textView.setText(R.string.antied_xposed);
+                break;
+        }
     }
+
+    native int getXposedStat();
 }

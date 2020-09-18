@@ -36,6 +36,7 @@ android {
     buildFeatures {
         buildConfig false
         viewBinding true
+        prefab true
     }
 
     externalNativeBuild {
@@ -50,7 +51,12 @@ android {
     dependenciesInfo.includeInApk false
 }
 
+repositories {
+    mavenLocal()
+}
+
 dependencies {
     //noinspection GradleDependency
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'io.github.vvb2060.ndk:xposeddetector:1.0'
 }

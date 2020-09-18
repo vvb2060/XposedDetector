@@ -1,2 +1,3 @@
 rootProject.name = "Xposed Detector"
 include ':app'
+include ':xposeddetector'
