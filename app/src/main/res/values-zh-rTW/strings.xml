@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="no_xposed">沒有 Xposed</string>
+    <string name="found_xposed">已發現 Xposed</string>
+    <string name="antied_xposed">以處理 Xposed</string>
+    <string name="app_name">Xposed 檢測軟體</string>
+</resources>
