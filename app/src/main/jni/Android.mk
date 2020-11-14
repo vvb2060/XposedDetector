@@ -8,4 +8,5 @@ LOCAL_LDLIBS    := -llog
 LOCAL_STATIC_LIBRARIES := xposed_detector
 include $(BUILD_SHARED_LIBRARY)
 
-$(call import-module,prefab/xposeddetector)
+include ../xposeddetector/src/main/jni/Android.mk
+#$(call import-module,prefab/xposeddetector)
