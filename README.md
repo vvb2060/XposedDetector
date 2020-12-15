@@ -62,4 +62,4 @@ target_link_libraries(app xposeddetector::xposed_detector)
 
 ## Sample application
 
-Use the `gradlew :app:iR` command to install sample app, or download [prebuilt apk](https://github.com/vvb2060/XposedDetector/releases/latest).
+Use the `gradlew :app:iR` command to install sample app, or download [CI Artifacts](https://github.com/vvb2060/XposedDetector/actions?query=branch%3Amaster).
