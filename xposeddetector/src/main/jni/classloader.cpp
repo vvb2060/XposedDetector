@@ -244,9 +244,9 @@ static inline void fill_dalvik_system_BaseDexClassLoader(char v[]) {
     v[0x20] = '\0';
 }
 
-class PathClassLoaderVisitor : public art::SingleRootVisitor {
+class ClassLoaderVisitor : public art::SingleRootVisitor {
 public:
-    PathClassLoaderVisitor(JNIEnv *env, jclass classLoader) : env_(env), classLoader_(classLoader) {
+    ClassLoaderVisitor(JNIEnv *env, jclass classLoader) : env_(env), classLoader_(classLoader) {
     }
 
     void VisitRoot(art::mirror::Object *root, const art::RootInfo &info ATTRIBUTE_UNUSED) {
@@ -340,7 +340,7 @@ static void checkGlobalRef(JNIEnv *env, jclass clazz) {
     }
     JavaVM *jvm;
     env->GetJavaVM(&jvm);
-    PathClassLoaderVisitor visitor(env, clazz);
+    ClassLoaderVisitor visitor(env, clazz);
     VisitRoots(jvm, &visitor);
 }
 
