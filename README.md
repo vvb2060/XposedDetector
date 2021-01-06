@@ -9,7 +9,7 @@ This library is based on the [genuine](https://github.com/brevent/genuine).
 Gradle:
 
 ```gradle
-implementation 'io.github.vvb2060.ndk:xposeddetector:1.0'
+implementation 'io.github.vvb2060.ndk:xposeddetector:1.1'
 ```
 
 This library is [Prefab](https://google.github.io/prefab/), so you will need to enable it in your project (Android Gradle Plugin 4.1+):
