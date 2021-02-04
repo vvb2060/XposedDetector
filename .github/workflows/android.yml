@@ -18,18 +18,12 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: '11'
-    - name: Create symlink to Android SDK without spaces
-      if: runner.os == 'Windows'
-      run: |
-        $oldAndroidPath = $env:ANDROID_SDK_ROOT
-        $sdk_root = "C:\Android"
-        New-Item -Path $sdk_root -ItemType SymbolicLink -Value $oldAndroidPath
-        echo "ANDROID_SDK_ROOT=$sdk_root" >> $env:GITHUB_ENV
-        echo "ANDROID_HOME=$sdk_root" >> $env:GITHUB_ENV
     - name: Build with Gradle
-      run: ./gradlew aR
+      run: |
+        ./gradlew aRelease
+        ./gradlew aDebug
     - name: Upload build artifact
       uses: actions/upload-artifact@v2
       with:
         name: ${{ matrix.os }}-artifact
-        path: app/build/outputs/apk/release/app-release.apk
+        path: app/build/outputs
