@@ -22,7 +22,7 @@ extern "C" {
 #define LOGV(...) (__android_log_print(ANDROID_LOG_VERBOSE, TAG, __VA_ARGS__))
 #define LOGD(...) (__android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__))
 
-void debug(JNIEnv *env, const char *format, jobject object);
+void debug(C_JNIEnv *env, const char *format, jobject object);
 
 #endif
 

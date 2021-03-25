@@ -1,4 +1,4 @@
-#include <stdlib.h>
+#include <cstdlib>
 #include "hash.h"
 
 static int size;
@@ -27,7 +27,7 @@ bool clear() {
         free(container);
         size = 0;
         index = 0;
-        container = NULL;
+        container = nullptr;
         return true;
     } else {
         return false;

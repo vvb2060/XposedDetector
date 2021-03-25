@@ -2,8 +2,16 @@
 
 #include <jni.h>
 
-char *findObjectArrayName(JNIEnv *env, jobject clazz);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-char *findStaticMapName(JNIEnv *env, jobject clazz);
+char *findObjectArrayName(C_JNIEnv *env, jobject clazz);
 
-char *findVoidStringName(JNIEnv *env, jobject clazz);
+char *findStaticMapName(C_JNIEnv *env, jobject clazz);
+
+char *findVoidStringName(C_JNIEnv *env, jclass clazz);
+
+#ifdef __cplusplus
+}
+#endif

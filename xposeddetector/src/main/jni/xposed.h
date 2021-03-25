@@ -7,11 +7,11 @@
 extern "C" {
 #endif
 
-bool clearHooks(JNIEnv *env, jobject classLoader);
+void doAntiXposed(C_JNIEnv *env, jobject object, intptr_t hash);
 
-jclass findXposedBridge(JNIEnv *env, jobject classLoader);
+void checkCallStack(C_JNIEnv *env);
 
-bool disableXposedBridge(JNIEnv *env, jclass classXposedBridge);
+extern int xposed_status;
 
 #ifdef __cplusplus
 }

@@ -14,6 +14,8 @@ enum {
     FOUND_XPOSED,
     // xposed hooks cleared.
     ANTIED_XPOSED,
+    // can not clear hooks.
+    CAN_NOT_ANTI_XPOSED,
 };
 
 int get_xposed_status(JNIEnv *env, int sdk);

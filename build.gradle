@@ -4,14 +4,14 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0-alpha11'
+        classpath 'com.android.tools.build:gradle:7.0.0-alpha12'
     }
 }
 
 allprojects {
     repositories {
         google()
-        mavenCentral()
+        maven { url = "https://jcenter.bintray.com" }
     }
 }
 

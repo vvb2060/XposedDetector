@@ -6,9 +6,7 @@
 extern "C" {
 #endif
 
-extern int xposed_status;
-
-void checkClassLoader(JNIEnv *env, int sdk);
+void checkClassLoader(C_JNIEnv *env, int sdk);
 
 #ifdef __cplusplus
 }
