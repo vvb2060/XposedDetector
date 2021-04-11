@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish'
+    id 'signing'
 }
 
 android {
@@ -44,4 +46,85 @@ android {
         }
     }
 
+}
+
+afterEvaluate {
+    android.libraryVariants.collect { variant ->
+        task("generate${variant.name.capitalize()}SourcesJar", type: Jar) {
+            from variant.javaCompileProvider.get().source
+            classifier 'sources'
+        }
+        task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
+            if (JavaVersion.current() >= JavaVersion.VERSION_1_9) {
+                options.addStringOption "-release", "8"
+            }
+            source variant.javaCompileProvider.get().source
+            classpath += variant.javaCompileProvider.get().classpath
+            classpath += files(android.getBootClasspath())
+            options {
+                failOnError false
+                encoding 'UTF-8'
+            }
+        }
+        task("generate${variant.name.capitalize()}JavadocJar", type: Jar) {
+            dependsOn "generate${variant.name.capitalize()}Javadoc"
+            from tasks.getByName("generate${variant.name.capitalize()}Javadoc").destinationDir
+            classifier 'javadoc'
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            group 'io.github.vvb2060.ndk'
+            artifactId 'xposeddetector'
+            version android.defaultConfig.versionName
+            afterEvaluate {
+                artifact tasks.getByName("bundleReleaseAar")
+                artifact tasks.getByName("generateReleaseJavadocJar")
+                artifact tasks.getByName("generateReleaseSourcesJar")
+            }
+            pom {
+                name = 'Xposed Detector'
+                description = 'static library prefab to detect xposed and clear hooks.'
+                url = 'https://github.com/vvb2060/XposedDetector'
+                licenses {
+                    license {
+                        name = 'The Apache Software License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        name = 'vvb2060'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:https://github.com/vvb2060/XposedDetector.git'
+                    url = 'https://github.com/vvb2060/XposedDetector'
+                }
+            }
+        }
+    }
+    repositories {
+        maven {
+            name 'ossrh'
+            url 'https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/'
+            credentials(PasswordCredentials)
+        }
+    }
+}
+
+signing {
+    def signingKey = findProperty("signingKey")
+    def signingPassword = findProperty("signingPassword")
+    def secretKeyRingFile = findProperty("signing.secretKeyRingFile")
+
+    if (secretKeyRingFile != null && file(secretKeyRingFile).exists()) {
+        sign publishing.publications
+    } else if (signingKey != null) {
+        useInMemoryPgpKeys(signingKey, signingPassword)
+        sign publishing.publications
+    }
 }

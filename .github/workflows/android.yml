@@ -22,6 +22,7 @@ jobs:
       run: |
         ./gradlew aRelease
         ./gradlew aDebug
+        ./gradlew publishToMavenLocal
     - name: Upload build artifact
       uses: actions/upload-artifact@v2
       with:
